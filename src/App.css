@@ -1,38 +1,72 @@
 .App {
+  padding: 1em;
+}
+
+h1,
+h2,
+h4,
+p {
+  margin: 0;
+  margin-bottom: 1em;
+}
+
+.header {
+  font-size: 1.3em;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  color: #0f4040;
   text-align: center;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.logo {
+  padding: 1.4rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
+.articles {
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+}
+
+.article {
+  border: 1px solid #0f4040;
+  margin-bottom: 1.5rem;
+  padding: 1em;
+  border-radius: 3px;
+}
+
+.article-title {
+  font-family: Courier;
+
+  font-size: 1.4em;
+}
+
+.article-topic {
+  font-family: "lucida sans-serif";
+  color: #0f4040;
+
+  font-size: 1.4em;
+}
+
+.article-author {
+  color: #12ba94;
+}
+
+/* Media queries */
+
+@media only screen and (min-width: 600px) {
+  .article-title,
+  .article-topic {
+    font-size: 1.6em;
   }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+  .article-body {
+    font-size: 1.2em;
   }
-  to {
-    transform: rotate(360deg);
+  .articles {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+  .article {
+    width: 20%;
   }
 }
