@@ -18,3 +18,11 @@ export const getArticle = (article_id) => {
     return data.results[0];
   });
 };
+
+export const getComments = (article_id) => {
+  let path = `/articles/${article_id}/comments`;
+
+  return newsApi.get(path).then(({ data }) => {
+    return data.comments;
+  });
+};
