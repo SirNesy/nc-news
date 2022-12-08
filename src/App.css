@@ -145,8 +145,6 @@ p {
   font-weight: bold;
 }
 .article-details {
-  display: flex;
-  justify-content: space-between;
   margin-top: 2em;
 }
 
@@ -176,4 +174,10 @@ p {
   display: flex;
   justify-content: center;
   margin: 5em;
+}
+
+.btn {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
 }

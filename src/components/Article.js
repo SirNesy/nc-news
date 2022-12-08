@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArticle, patchDecVotes, patchIncVotes } from "../utills/api";
 
@@ -7,6 +7,9 @@ const Article = () => {
   const [article, setArticle] = useState({});
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
+  const [voted, setVoted] = useState(false);
+  const [unVote, setUnVote] = useState(false);
+
   useEffect(() => {
     getArticle(article_id).then((result) => {
       setArticle(result);
@@ -24,6 +27,7 @@ const Article = () => {
     setArticle((current_article) => {
       return { ...current_article, votes: current_article.votes + 1 };
     });
+    setVoted(true);
   }
 
   function handleDecVotes() {
@@ -35,7 +39,10 @@ const Article = () => {
     setArticle((current_article) => {
       return { ...current_article, votes: current_article.votes - 1 };
     });
+    setUnVote(true);
   }
+
+  useEffect(() => {}, [article_id]);
 
   return loading ? (
     <h2>Loading...</h2>
@@ -50,20 +57,24 @@ const Article = () => {
         <h2 className="article-author"> {article.author}</h2>
         <p> {article.body} </p>
         <div className="article-details">
-          <p className="article-detail">Created: {article.created_at}</p>
-          <p className="article-detail">
-            <span className="button-dec" onClick={handleDecVotes}>
+          <p>Created: {article.created_at}</p>
+          <p className="btn">
+            <span
+              className="button-dec"
+              onClick={!unVote ? handleDecVotes : null}
+            >
               {" "}
               UNVOTE
             </span>
             Votes: {article.votes}{" "}
-            <span className="button-inc" onClick={handleIncVotes}>
+            <span
+              className="button-inc"
+              onClick={!voted ? handleIncVotes : null}
+            >
               VOTE
             </span>
           </p>
-          <p className="article-detail">
-            Comment Count: {article.comment_count}
-          </p>
+          <p>Comment Count: {article.comment_count}</p>
         </div>
       </div>
       <Link to={`/articles/${article_id}/comments`}>Comments</Link>
