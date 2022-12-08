@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getArticle, patchDecVotes, patchIncVotes } from "../utills/api";
 
@@ -8,7 +8,6 @@ const Article = () => {
   const [loading, setLoading] = useState(true);
   const [err, setErr] = useState(null);
   const [voted, setVoted] = useState(false);
-  const [unVote, setUnVote] = useState(false);
 
   useEffect(() => {
     getArticle(article_id).then((result) => {
@@ -19,30 +18,34 @@ const Article = () => {
 
   function handleIncVotes() {
     console.log("button clicked");
+    setArticle((current_article) => {
+      return { ...current_article, votes: current_article.votes + 1 };
+    });
     patchIncVotes(article_id).catch((err) => {
+      setArticle((current_article) => {
+        return { ...current_article, votes: current_article.votes - 1 };
+      });
       setErr(
         <span className="err">Something went wrong, please try again </span>
       );
-    });
-    setArticle((current_article) => {
-      return { ...current_article, votes: current_article.votes + 1 };
     });
     setVoted(true);
   }
 
   function handleDecVotes() {
+    setArticle((current_article) => {
+      return { ...current_article, votes: current_article.votes - 1 };
+    });
     patchDecVotes(article_id).catch((err) => {
+      setArticle((current_article) => {
+        return { ...current_article, votes: current_article.votes + 1 };
+      });
       setErr(
         <span className="err">Something went wrong, please try again </span>
       );
     });
-    setArticle((current_article) => {
-      return { ...current_article, votes: current_article.votes - 1 };
-    });
-    setUnVote(true);
+    setVoted(false);
   }
-
-  useEffect(() => {}, [article_id]);
 
   return loading ? (
     <h2>Loading...</h2>
@@ -59,17 +62,10 @@ const Article = () => {
         <div className="article-details">
           <p>Created: {article.created_at}</p>
           <p className="btn">
-            <span 
-              className="button-dec"
-              onClick={!unVote ? handleDecVotes : null}
-            >
-              {" "}
-              UNVOTE
-            </span>
             Votes: {article.votes}{" "}
             <span
               className="button-inc"
-              onClick={!voted ? handleIncVotes : null}
+              onClick={!voted ? handleIncVotes : handleDecVotes}
             >
               VOTE
             </span>
