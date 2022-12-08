@@ -42,7 +42,7 @@ export const getTopics = () => {
 };
 
 export const patchIncVotes = (article_id) => {
-  let path = `/article/${article_id}`;
+  let path = `/articles/${article_id}`;
 
   return newsApi.patch(path, { inc_votes: 1 }).then(({ data }) => {
     return data.article;

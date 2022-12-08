@@ -28,7 +28,9 @@ const Article = () => {
 
   function handleDecVotes() {
     patchDecVotes(article_id).catch((err) => {
-      setErr("Something went wrong, please try again");
+      setErr(
+        <span className="err">Something went wrong, please try again </span>
+      );
     });
     setArticle((current_article) => {
       return { ...current_article, votes: current_article.votes - 1 };
