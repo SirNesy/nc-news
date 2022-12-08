@@ -59,7 +59,7 @@ const Article = () => {
         <div className="article-details">
           <p>Created: {article.created_at}</p>
           <p className="btn">
-            <span
+            <span 
               className="button-dec"
               onClick={!unVote ? handleDecVotes : null}
             >
