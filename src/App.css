@@ -115,3 +115,65 @@ p {
 .date-created {
   margin-right: 2em;
 }
+
+.nav-bar {
+  border: 1px solid #e89a50;
+  padding: 2em;
+  margin-bottom: 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.topic-nav {
+  display: flex;
+  justify-content: space-between;
+  list-style: none;
+  border: 1px solid #127b7f;
+  border-radius: 0.3em;
+  background-color: #e89a50;
+}
+
+.user-name {
+  border: 1px solid black;
+  color: white;
+  font-size: 1.3em;
+  background-color: #e89a50;
+  border-radius: 0.3em;
+  padding: 0.5em;
+  text-transform: capitalize;
+  font-weight: bold;
+}
+.article-details {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2em;
+}
+
+.button-inc {
+  border: 1px solid green;
+  background-color: rgb(17, 157, 17);
+  padding: 0.4em;
+  border-radius: 1em;
+  color: black;
+  margin-left: 0.4em;
+}
+
+.button-dec {
+  border: 1px solid red;
+  background-color: rgb(251, 12, 12);
+  padding: 0.4em;
+  border-radius: 1em;
+  color: black;
+  margin-right: 0.6em;
+}
+
+.err {
+  background-color: rgb(255, 0, 0);
+  color: rgb(252, 250, 250);
+  padding: 0.7em;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  margin: 5em;
+}

@@ -26,3 +26,34 @@ export const getComments = (article_id) => {
     return data.comments;
   });
 };
+
+export const getUsers = () => {
+  let path = "/users";
+  return newsApi.get(path).then(({ data }) => {
+    return data.users;
+  });
+};
+
+export const getTopics = () => {
+  let path = "/topics";
+  return newsApi.get(path).then(({ data }) => {
+    return data.topics;
+  });
+};
+
+export const patchIncVotes = (article_id) => {
+  let path = `/article/${article_id}`;
+
+  return newsApi.patch(path, { inc_votes: 1 }).then(({ data }) => {
+    return data.article;
+  });
+};
+
+export const patchDecVotes = (article_id) => {
+  let path = `/articles/${article_id}`;
+
+  return newsApi.patch(path, { inc_votes: -1 }).then(({ data }) => {
+    console.log(data.article.votes);
+    return data.article;
+  });
+};
