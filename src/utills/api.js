@@ -57,3 +57,17 @@ export const patchDecVotes = (article_id) => {
     return data.article;
   });
 };
+
+export const postComment = (article_id, username, body) => {
+  let path = `/articles/${article_id}/comments`;
+ 
+  return newsApi
+    .post(path, {
+      username: username,
+      body: body,
+    })
+    .then(({ data }) => {
+      console.log(data.comment);
+      return data.comment;
+    });
+};
