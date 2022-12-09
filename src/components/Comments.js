@@ -9,13 +9,21 @@ function Comments() {
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
+  // const [sending, setSending] = useState(true)
+  const [notification, setNotification] = useState("");
 
   const handleChangeComment = (e) => {
-    console.log(e.target.value);
-    setComment(e.target.value);
+    const val = e.target.value
+    setComment(val);
   };
   const handleSubmitComment = (e) => {
     e.preventDefault();
+
+    if (comment.trim() === "") {
+      alert("comment required");
+    } else {
+      setNotification("Comment submitted");
+    }
     postComment(article_id, user.username, comment).then((result) => {
       setComments((current_comments) => {
         return [{ ...result, ...current_comments }];
@@ -23,12 +31,13 @@ function Comments() {
     });
     setComment("");
 
-    console.log(comments);
   };
   useEffect(() => {
     getComments(article_id).then((result) => {
       setComments(result);
       setLoading(false);
+      // setSending(false);
+      setNotification("");
     });
   }, [article_id, comments]);
 
@@ -37,11 +46,14 @@ function Comments() {
   ) : (
     <ul>
       <form onSubmit={handleSubmitComment}>
-        <label>
-          <input placeholder="Enter comment" onChange={handleChangeComment} />
-          <button type="submit">Add Comment</button>
-        </label>
+        <input
+          className="input-field"
+          placeholder="Enter comment"
+          onChange={handleChangeComment} value={comment}
+          required/>
+        <button type="submit">Add Comment</button>
       </form>
+      <p className="notify">{notification}</p>
       {comments.map((comment) => {
         return (
           <li className="comment" key={comment.comment_id}>

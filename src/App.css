@@ -176,3 +176,20 @@ p {
   justify-content: space-around;
   align-items: center;
 }
+
+.notify:not(:empty) {
+  background-color: rgb(72, 112, 11);
+  color: white;
+  padding: 0.7em;
+  border: 2px solid #12ba94;
+  border-radius: 0.3em;
+  width: 180px;
+}
+
+.input-field {
+  border: 2px solid rgb(67, 53, 15);
+  background-color: #e89a50;
+  color: white;
+  padding: 0.5em;
+  border-radius: 0.5em;
+}
