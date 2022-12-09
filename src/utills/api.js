@@ -71,3 +71,10 @@ export const postComment = (article_id, username, body) => {
       return data.comment;
     });
 };
+
+export const getArticleByTopics = (topic) => {
+  let path = `/articles/?topic=${topic}`
+  return newsApi.get(path).then(({data}) =>{
+    return data.articles;
+  })
+}
