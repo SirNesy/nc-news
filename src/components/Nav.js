@@ -9,7 +9,7 @@ function Nav() {
     <div className="nav-bar">
       <span className="user-name"> {user.username}</span>
       <Link to={"/"}>Home</Link>
-      <Link to={"/topics"}> Topics</Link>
+      <Link to={"/topics/:topic"}> Topics</Link>
       <Link to={"/users"}> Login</Link>
     </div>
   );

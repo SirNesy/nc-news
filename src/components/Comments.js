@@ -13,7 +13,7 @@ function Comments() {
   const [notification, setNotification] = useState("");
 
   const handleChangeComment = (e) => {
-    const val = e.target.value
+    const val = e.target.value;
     setComment(val);
   };
   const handleSubmitComment = (e) => {
@@ -21,16 +21,18 @@ function Comments() {
 
     if (comment.trim() === "") {
       alert("comment required");
+    }
+    if (!user.username) {
+      alert("Please login");
     } else {
       setNotification("Comment submitted");
-    }
-    postComment(article_id, user.username, comment).then((result) => {
-      setComments((current_comments) => {
-        return [{ ...result, ...current_comments }];
+      postComment(article_id, user.username, comment).then((result) => {
+        setComments((current_comments) => {
+          return [{ ...result, ...current_comments }];
+        });
       });
-    });
-    setComment("");
-
+      setComment("");
+    }
   };
   useEffect(() => {
     getComments(article_id).then((result) => {
@@ -49,8 +51,10 @@ function Comments() {
         <input
           className="input-field"
           placeholder="Enter comment"
-          onChange={handleChangeComment} value={comment}
-          required/>
+          onChange={handleChangeComment}
+          value={comment}
+          required
+        />
         <button type="submit">Add Comment</button>
       </form>
       <p className="notify">{notification}</p>
