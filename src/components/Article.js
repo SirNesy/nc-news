@@ -17,7 +17,7 @@ const Article = () => {
   }, [article_id]);
 
   function handleIncVotes() {
-    console.log("button clicked");
+    // console.log("button clicked");
     setArticle((current_article) => {
       return { ...current_article, votes: current_article.votes + 1 };
     });

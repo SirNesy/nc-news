@@ -28,11 +28,9 @@ function Topics() {
       <ul className="topic-nav">
         {topics.map((topic, i) => {
           return (
-              <span className="topic" key={i}>
-            <Link to={`/topics/${topic.slug}`}>
-                {topic.slug}
-            </Link>
-              </span>
+            <span className="topic" key={i}>
+              <Link to={`/topics/${topic.slug}`}>{topic.slug}</Link>
+            </span>
           );
         })}
       </ul>

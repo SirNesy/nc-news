@@ -1,5 +1,6 @@
 .App {
   padding: 1em;
+  background-color:burlywood;
 }
 
 h1,
@@ -193,3 +194,18 @@ p {
   padding: 0.5em;
   border-radius: 0.5em;
 }
+
+.select-dropdown, .order-dropdown{
+  background-color:#000;
+  color:aliceblue;
+  border-radius: 0.3rem;
+}
+
+.query{
+  display: flex;
+}
+
+.order{
+  margin-left: 8px;
+}
+

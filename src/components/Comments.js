@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { UserContext } from "../context/User";
-import { getComments, postComment } from "../utills/api";
+import { deleteComment, getComments, postComment } from "../utills/api";
 
 function Comments() {
   const [comments, setComments] = useState([]);
@@ -9,8 +9,31 @@ function Comments() {
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
   const [comment, setComment] = useState("");
-  // const [sending, setSending] = useState(true)
   const [notification, setNotification] = useState("");
+  const [commentID, setCommentID] = useState(null)
+
+  const handleDelete = (index, commentId, commentAuthor) => {
+    const newComment = [...comments]
+    console.log(commentAuthor);
+    if(!user.username){
+      alert("Please Login to delete your comment!")
+    }else if(user.username !== commentAuthor){
+      alert("You can only delete your comment!")
+    }else{
+      newComment.splice(index,1)
+      setComment(newComment)
+      setCommentID(commentId)
+      
+    }
+  };
+  
+  useEffect(()=>{
+    deleteComment(commentID).then((result) => {
+      // alert("Comment deleted")
+      return result
+    });
+
+  }, [commentID])
 
   const handleChangeComment = (e) => {
     const val = e.target.value;
@@ -38,7 +61,6 @@ function Comments() {
     getComments(article_id).then((result) => {
       setComments(result);
       setLoading(false);
-      // setSending(false);
       setNotification("");
     });
   }, [article_id, comments]);
@@ -58,15 +80,20 @@ function Comments() {
         <button type="submit">Add Comment</button>
       </form>
       <p className="notify">{notification}</p>
-      {comments.map((comment) => {
+      {comments.map((comment, index) => {
+        const commentId = comment.comment_id;
+        const commentAuthor = comment.author;
         return (
-          <li className="comment" key={comment.comment_id}>
-            <h3 className="comment-author">{comment.author}</h3>
+          <li className="comment" key={commentId}>
+            <h3 className="comment-author">{commentAuthor}</h3>
             <p className="comment-body"> {comment.body} </p>
             <div className="comment-details">
               <p className="date-created">{comment.created_at}</p>
               <p className="comment-votes">{comment.votes}</p>
             </div>
+            <button onClick={() => handleDelete(index, commentId, commentAuthor)}>
+              DELETE
+            </button>
           </li>
         );
       })}

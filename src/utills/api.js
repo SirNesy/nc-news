@@ -4,17 +4,17 @@ const newsApi = axios.create({
   baseURL: "https://dark-jade-rabbit-garb.cyclic.app/api",
 });
 
-export const getArticles = () => {
-  return newsApi.get("/articles").then(({ data }) => {
+export const getArticles = (sort, order) => {
+  return newsApi.get(`/articles/?sort_by=${sort}&order=${order}`).then(({ data }) => {
     return data.articles;
   });
 };
+
 
 export const getArticle = (article_id) => {
   let path = `/articles/${article_id}`;
 
   return newsApi.get(path).then(({ data }) => {
-    // console.log(data.results);
     return data.results[0];
   });
 };
@@ -67,7 +67,7 @@ export const postComment = (article_id, username, body) => {
       body: body,
     })
     .then(({ data }) => {
-      console.log(data.comment);
+      // console.log(data.comment);
       return data.comment;
     });
 };
@@ -76,5 +76,12 @@ export const getArticleByTopics = (topic) => {
   let path = `/articles/?topic=${topic}`
   return newsApi.get(path).then(({data}) =>{
     return data.articles;
+  })
+}
+
+export const deleteComment = (comment_id) => {
+  let path = `/comments/${comment_id}`
+  return newsApi.delete(path).then(data => {
+    return data
   })
 }
