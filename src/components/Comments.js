@@ -3,29 +3,28 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../context/User";
 import { deleteComment, getComments, postComment } from "../utills/api";
 
-
 function Comments() {
   const [comments, setComments] = useState([]);
   const { article_id } = useParams();
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
-  const [inputComment, setComment] = useState("");
+  const [inputComment, setInputComment] = useState("");
   const [notification, setNotification] = useState("");
   const [commentID, setCommentID] = useState(null);
+  const [err, setErr] = useState(null);
 
   const handleDelete = (index, commentId, commentAuthor) => {
     const newComment = [...comments];
-    console.log(commentAuthor);
+    console.log(inputComment);
     if (!user.username) {
       alert("Please Login to delete your comment!");
     } else if (user.username !== commentAuthor) {
       alert("You can only delete your comment!");
     } else {
       newComment.splice(index, 1);
-      setComment(newComment);
+      setComments(newComment);
       setCommentID(commentId);
     }
-
   };
   useEffect(() => {
     deleteComment(commentID).then((result) => {
@@ -34,10 +33,9 @@ function Comments() {
     });
   }, [commentID]);
 
-
   const handleChangeComment = (e) => {
     const val = e.target.value;
-    setComment(val);
+    setInputComment(val);
   };
   const handleSubmitComment = (e) => {
     e.preventDefault();
@@ -51,10 +49,21 @@ function Comments() {
       setNotification("Comment submitted");
       postComment(article_id, user.username, inputComment).then((result) => {
         setComments((current_comments) => {
-          return [{ ...result, ...current_comments }];
+          const newComments = [{ ...result, ...current_comments }];
+          return newComments;
         });
-      });
-      setComment("");
+        setInputComment("");
+      }).catch(
+        (err, result) => {
+          setComments((current_comments) => {
+            const newComments = [{ ...result, ...current_comments }];
+            newComments.shift(result);
+            return newComments;
+          });
+          setInputComment("");
+          setErr("OOOOPS! Something went wrong");
+        }
+      );
     }
   };
   useEffect(() => {
@@ -78,14 +87,13 @@ function Comments() {
           required
         />
         <button type="submit">Add Comment</button>
-        
       </form>
       <p className="notify">{notification}</p>
       {comments.map((comment, index) => {
         const commentId = comment.comment_id;
         const commentAuthor = comment.author;
         return (
-          <li className="comment" key={commentId}>
+          <li className="comment" key={comment.comment_id}>
             <h3 className="comment-author">{commentAuthor}</h3>
             <p className="comment-body"> {comment.body} </p>
             <div className="comment-details">
