@@ -3,37 +3,37 @@ import { useParams } from "react-router-dom";
 import { UserContext } from "../context/User";
 import { deleteComment, getComments, postComment } from "../utills/api";
 
+
 function Comments() {
   const [comments, setComments] = useState([]);
   const { article_id } = useParams();
   const [loading, setLoading] = useState(true);
   const { user } = useContext(UserContext);
-  const [comment, setComment] = useState("");
+  const [inputComment, setComment] = useState("");
   const [notification, setNotification] = useState("");
-  const [commentID, setCommentID] = useState(null)
+  const [commentID, setCommentID] = useState(null);
 
   const handleDelete = (index, commentId, commentAuthor) => {
-    const newComment = [...comments]
+    const newComment = [...comments];
     console.log(commentAuthor);
-    if(!user.username){
-      alert("Please Login to delete your comment!")
-    }else if(user.username !== commentAuthor){
-      alert("You can only delete your comment!")
-    }else{
-      newComment.splice(index,1)
-      setComment(newComment)
-      setCommentID(commentId)
-      
+    if (!user.username) {
+      alert("Please Login to delete your comment!");
+    } else if (user.username !== commentAuthor) {
+      alert("You can only delete your comment!");
+    } else {
+      newComment.splice(index, 1);
+      setComment(newComment);
+      setCommentID(commentId);
     }
+
   };
-  
-  useEffect(()=>{
+  useEffect(() => {
     deleteComment(commentID).then((result) => {
       // alert("Comment deleted")
-      return result
+      return result;
     });
+  }, [commentID]);
 
-  }, [commentID])
 
   const handleChangeComment = (e) => {
     const val = e.target.value;
@@ -42,14 +42,14 @@ function Comments() {
   const handleSubmitComment = (e) => {
     e.preventDefault();
 
-    if (comment.trim() === "") {
+    if (inputComment.trim() === "") {
       alert("comment required");
     }
     if (!user.username) {
       alert("Please login");
     } else {
       setNotification("Comment submitted");
-      postComment(article_id, user.username, comment).then((result) => {
+      postComment(article_id, user.username, inputComment).then((result) => {
         setComments((current_comments) => {
           return [{ ...result, ...current_comments }];
         });
@@ -74,10 +74,11 @@ function Comments() {
           className="input-field"
           placeholder="Enter comment"
           onChange={handleChangeComment}
-          value={comment}
+          value={inputComment}
           required
         />
         <button type="submit">Add Comment</button>
+        
       </form>
       <p className="notify">{notification}</p>
       {comments.map((comment, index) => {
@@ -91,7 +92,9 @@ function Comments() {
               <p className="date-created">{comment.created_at}</p>
               <p className="comment-votes">{comment.votes}</p>
             </div>
-            <button onClick={() => handleDelete(index, commentId, commentAuthor)}>
+            <button
+              onClick={() => handleDelete(index, commentId, commentAuthor)}
+            >
               DELETE
             </button>
           </li>

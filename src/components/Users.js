@@ -17,14 +17,22 @@ function Users() {
     <h2> Loading</h2>
   ) : (
     <div>
-      <ul>
+      <ul className="user-list">
         {users.map((user) => {
           return (
-            <li key={user.username}>
-              <h3> {user.username} </h3>
-              <p> {user.name}</p>
-              <img src={user.avatar_url} alt="user identity" />
-              <button onClick={() => setUser(user)}>Login</button>
+            <li className="user" key={user.username}>
+              <div className="user-name-details">
+                <h3> {user.username} </h3>
+                <p> {user.name}</p>
+                <img
+                  id="avatar-img"
+                  src={user.avatar_url}
+                  alt="user identity"
+                />
+              </div>
+              <button id="user-login" onClick={() => setUser(user)}>
+                Login
+              </button>
             </li>
           );
         })}

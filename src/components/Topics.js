@@ -6,12 +6,13 @@ function Topics() {
   const [topics, setTopics] = useState([]);
   const [loading, setLoading] = useState(true);
   const [articles, setArticle] = useState([]);
+
   const { topic } = useParams();
-  // console.log(topic);
   useEffect(() => {
     getTopics().then((result) => {
       setTopics(result);
       setLoading(false);
+
     });
   }, []);
 
@@ -29,7 +30,9 @@ function Topics() {
         {topics.map((topic, i) => {
           return (
             <span className="topic" key={i}>
-              <Link to={`/topics/${topic.slug}`}>{topic.slug}</Link>
+              <Link id="topic-link" to={`/topics/${topic.slug}`}>
+                {topic.slug}
+              </Link>
             </span>
           );
         })}

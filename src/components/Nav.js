@@ -8,9 +8,17 @@ function Nav() {
   return (
     <div className="nav-bar">
       <span className="user-name"> {user.username}</span>
-      <Link to={"/"}>Home</Link>
-      <Link to={"/topics/:topic"}> Topics</Link>
-      <Link to={"/users"}> Login</Link>
+      <Link id="link" to={"/"}>
+        HOME
+      </Link>
+      <Link id="link" to={"/topics/:topic"}>
+        {" "}
+        TOPICS
+      </Link>
+      <Link id="link" to={"/users"}>
+        {" "}
+        LOGIN
+      </Link>
     </div>
   );
 }
