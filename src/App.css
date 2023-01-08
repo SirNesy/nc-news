@@ -269,3 +269,9 @@ p {
   width: 5rem;
   margin: 3rem;
 }
+
+#green-tick {
+  width: 2rem;
+  height: 2rem;
+  margin: 1rem;
+}

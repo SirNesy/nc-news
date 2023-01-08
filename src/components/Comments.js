@@ -47,14 +47,15 @@ function Comments() {
       alert("Please login");
     } else {
       setNotification("Comment submitted");
-      postComment(article_id, user.username, inputComment).then((result) => {
-        setComments((current_comments) => {
-          const newComments = [{ ...result, ...current_comments }];
-          return newComments;
-        });
-        setInputComment("");
-      }).catch(
-        (err, result) => {
+      postComment(article_id, user.username, inputComment)
+        .then((result) => {
+          setComments((current_comments) => {
+            const newComments = [{ ...result, ...current_comments }];
+            return newComments;
+          });
+          setInputComment("");
+        })
+        .catch((err, result) => {
           setComments((current_comments) => {
             const newComments = [{ ...result, ...current_comments }];
             newComments.shift(result);
@@ -62,8 +63,7 @@ function Comments() {
           });
           setInputComment("");
           setErr("OOOOPS! Something went wrong");
-        }
-      );
+        });
     }
   };
   useEffect(() => {
@@ -86,7 +86,10 @@ function Comments() {
           value={inputComment}
           required
         />
-        <button type="submit">Add Comment</button>
+        <button id="green-tick" type="submit">
+          {" "}
+          ✅
+        </button>
       </form>
       <p className="notify">{notification}</p>
       {comments.map((comment, index) => {
@@ -103,7 +106,7 @@ function Comments() {
             <button
               onClick={() => handleDelete(index, commentId, commentAuthor)}
             >
-              DELETE
+              ❌
             </button>
           </li>
         );
