@@ -72,7 +72,7 @@ function Comments() {
       setLoading(false);
       setNotification("");
     });
-  }, [article_id, comments]);
+  }, [article_id, comments, err]);
 
   return loading ? (
     <h2>Loading...</h2>
