@@ -8,17 +8,19 @@ function Nav() {
   return (
     <div className="nav-bar">
       <span className="user-name"> {user.username}</span>
-      <Link id="link" to={"/"}>
-        HOME
-      </Link>
-      <Link id="link" to={"/topics/:topic"}>
-        {" "}
-        TOPICS
-      </Link>
-      <Link id="link" to={"/users"}>
-        {" "}
-        LOGIN
-      </Link>
+      <div className="link-flex">
+        <Link id="link" to={"/"}>
+          HOME
+        </Link>
+        <Link id="link" to={"/topics/:topic"}>
+          {" "}
+          TOPICS
+        </Link>
+        <Link id="link" to={"/users"}>
+          {" "}
+          LOGIN
+        </Link>
+      </div>
     </div>
   );
 }

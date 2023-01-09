@@ -123,7 +123,8 @@ p {
   padding: 2em;
   margin-bottom: 1em;
   display: flex;
-  justify-content: space-between;
+  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
   background-color: #dfb695;
 }
@@ -131,6 +132,13 @@ p {
   color: #fafbfc;
   font-weight: 700;
   margin: 1rem;
+}
+
+.link-flex {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
 }
 
 #topic-link {
@@ -163,7 +171,8 @@ p {
   font-size: 1.3em;
   background-color: #b8a270;
   border-radius: 0.3em;
-  padding: 0.2em;
+  padding: 0.1em;
+  margin-bottom: 0.5em;
   text-transform: capitalize;
   font-weight: 300;
 }
